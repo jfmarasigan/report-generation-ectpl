@@ -58,7 +58,7 @@ public class LambdaFunctionHandler implements RequestHandler<FunctionParameters,
 	
 	private ObjectNode processEmailResponse(EmailSender sender, DatabaseOperations ops) {		
 		ObjectNode emailResult = sender.send();
-		String message = emailResult.get("payload").asText();
+		String message = emailResult.get("message").asText();
 		ops.updateEmailSendingStatus(message);
 		
 		return emailResult;
