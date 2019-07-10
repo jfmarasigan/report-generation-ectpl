@@ -27,7 +27,7 @@ public final class EmailSender {
 		AWSLambdaClientBuilder builder = AWSLambdaClientBuilder.standard();
 		AWSLambda client = builder.build();
 
-		InvokeRequest request = new InvokeRequest().withFunctionName("email-sender");
+		InvokeRequest request = new InvokeRequest().withFunctionName("ectpl-email-sender");
 		String emailPayload = constructEmailPayload();
 		request.withPayload(emailPayload);
 
