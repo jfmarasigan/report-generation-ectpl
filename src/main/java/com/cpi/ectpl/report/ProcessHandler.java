@@ -88,7 +88,9 @@ public final class ProcessHandler {
 	}
 
 	private void deleteReports(List<ReportStrings> reportStrings) {
-		String[] keys = reportStrings.toArray(new String[reportStrings.size()]);
+		String[] keys = reportStrings.stream()
+				.map(reportString -> reportString.getGeneratedReportDir())
+				.toArray(String[]::new);
 		s3util.deleteObjectsFromS3(keys);
 	}
 
