@@ -25,7 +25,7 @@ public final class DatabaseOperations {
 	public void updateGenerateReportStatus(String message) {
 		String query = "UPDATE EPIT_CTPL_TRANS SET GEN_REPORT_STAT = ?, LAST_UPDATE = sysdate() WHERE policy_id = ? AND tran_id = ?";
 
-		try (Connection connection = DatabaseConnection.createMySQLConnection();) {
+		try (Connection connection = DatabaseConnection.getMySQLConnection();) {
 			try (PreparedStatement stmt = connection.prepareStatement(query);) {
 				connection.setAutoCommit(false);
 				stmt.setString(1, message);
@@ -47,7 +47,7 @@ public final class DatabaseOperations {
 	public void updateEmailSendingStatus(String message) {
 		String query = "UPDATE EPIT_CTPL_TRANS SET EMAIL_REPORT_STAT = ?, LAST_UPDATE = sysdate() WHERE policy_id = ? AND tran_id = ?";
 
-		try (Connection connection = DatabaseConnection.createMySQLConnection();) {
+		try (Connection connection = DatabaseConnection.getMySQLConnection();) {
 			try (PreparedStatement stmt = connection.prepareStatement(query);) {
 				connection.setAutoCommit(false);
 				stmt.setString(1, message);
@@ -69,7 +69,7 @@ public final class DatabaseOperations {
 	public String getReportsToBeGenerated(String reportType) {
 		String query = "";
 		
-		try (Connection connection = DatabaseConnection.createMySQLConnection();
+		try (Connection connection = DatabaseConnection.getMySQLConnection();
 			 PreparedStatement stmt = connection.prepareStatement(query);) {
 			ResultSet result = stmt.executeQuery();
 			StringJoiner reports = new StringJoiner(",,");
