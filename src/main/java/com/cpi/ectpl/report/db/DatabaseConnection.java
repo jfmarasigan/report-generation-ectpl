@@ -75,10 +75,10 @@ public class DatabaseConnection {
 		List<String> parameterNames = new ArrayList<>();
 		parameterNames.add(0, new StringBuilder().append(prefix).append("host").toString());
 		parameterNames.add(1, new StringBuilder().append(prefix).append("port").toString());
-		parameterNames.add(2, new StringBuilder().append(prefix).append(Env.APPLICATION.value()).append("database").toString());
+		parameterNames.add(2, new StringBuilder().append(prefix).append(Env.APPLICATION.value()).append("/database").toString());
 		parameterNames.add(3, new StringBuilder().append(prefix).append("user").toString());
 		parameterNames.add(4, new StringBuilder().append(prefix).append("password").toString());
-
+		System.out.println(parameterNames);
 		return parameterNames;
 	}
 

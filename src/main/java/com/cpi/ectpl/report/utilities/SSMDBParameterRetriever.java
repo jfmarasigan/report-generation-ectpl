@@ -1,6 +1,5 @@
 package com.cpi.ectpl.report.utilities;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,9 +11,6 @@ import com.amazonaws.services.simplesystemsmanagement.model.GetParametersResult;
 import com.amazonaws.services.simplesystemsmanagement.model.Parameter;
 
 public final class SSMDBParameterRetriever {
-
-	private static List<String> paramNames = new ArrayList<>();
-
 	private static final String PREFIX = "/bliss/" + Env.COMPANY_NAME.value() + "/db/";
 	public static final String DB_HOST = PREFIX + "host";
 	public static final String DB_PORT = PREFIX + "port";
@@ -24,7 +20,7 @@ public final class SSMDBParameterRetriever {
 
 	public static Map<String, String> getDatabaseParameters(List<String> parameterNames) {
 		GetParametersRequest request = new GetParametersRequest();
-		request.withNames(paramNames).setWithDecryption(true);
+		request.withNames(parameterNames).setWithDecryption(true);
 
 		AWSSimpleSystemsManagement client = AWSSimpleSystemsManagementClientBuilder.defaultClient();
 		GetParametersResult result = client.getParameters(request);

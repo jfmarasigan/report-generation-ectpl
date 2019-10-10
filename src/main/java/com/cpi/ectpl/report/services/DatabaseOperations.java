@@ -1,5 +1,6 @@
 package com.cpi.ectpl.report.services;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -77,6 +78,26 @@ public final class DatabaseOperations {
 				reports.add(result.getString("REPORT_NAME"));
 			}
 			return reports.toString();
+		} catch (SQLException e) {
+			throw new ReportGenerationException("An error occurred while retrieving reports to be generated.", e);
+		}
+	}
+	
+	/**
+	 * Retrieves the password string to be used for report protection
+	 * */
+	public String getDocumentPassword() {
+		String query = "{ CALL GET_DOCUMENT_PASSWORD(?) }";
+		String pwd = null;
+		
+		try (Connection connection = DatabaseConnection.getMySQLConnection();
+			 CallableStatement stmt = connection.prepareCall(query);) {
+			stmt.setInt(1, policyId);
+			ResultSet result = stmt.executeQuery();
+			while (result.next()) {
+				pwd = result.getString("password");
+			}
+			return pwd;
 		} catch (SQLException e) {
 			throw new ReportGenerationException("An error occurred while retrieving reports to be generated.", e);
 		}
